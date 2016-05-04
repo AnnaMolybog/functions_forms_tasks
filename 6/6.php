@@ -8,9 +8,12 @@ function scanImage ($dir) {
 $types = ['image/gif', 'image/png', 'image/jpeg', 'image/JPG'];
 if (isset($_FILES['filename'])) {
     $dir = "gallery/";
-        if (in_array($_FILES['filename']['type'], $types)) {
-            copy($_FILES['filename']['tmp_name'], $dir . basename($_FILES['filename']['name']));
+    $n = count($_FILES['filename']['name']);
+    for ($i = 0; $i < $n; $i++) {
+        if (in_array($_FILES['filename']['type'][$i], $types)) {
+            copy($_FILES['filename']['tmp_name'][$i], $dir . basename($_FILES['filename']['name'][$i]));
         }
+    }
 } else {
     $dir = "gallery/";
     $file = scanImage($dir);
